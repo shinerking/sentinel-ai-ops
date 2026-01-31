@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - sentinel-network
+
+  sentinel-core:
+    build: ./sentinel-core
+    ports:
+      - "4000:4000"
+    environment:
+      - PORT=4000
+      - REDIS_HOST=redis
+      # Ganti ini sesuai Supabase kamu
+      - SUPABASE_URL=${SUPABASE_URL} 
+      - SUPABASE_KEY=${SUPABASE_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - DISCORD_WEBHOOK_URL=${DISCORD_WEBHOOK_URL}
+    depends_on:
+      - redis
+    networks:
+      - sentinel-network
+
+  sentinel-web:
+    build: ./sentinel-web
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_SOCKET_URL=http://localhost:4000
+    networks:
+      - sentinel-network
+
+networks:
+  sentinel-network:
+    driver: bridge

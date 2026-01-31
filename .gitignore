@@ -1,0 +1,32 @@
+# --- RAHASIA NEGARA (WAJIB) ---
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+**/.env.*.local
+
+# --- Folder Sampah (Biikin Berat) ---
+node_modules/
+npm-debug.log
+yarn-error.log
+.next/
+dist/
+build/
+out/
+.vercel/
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+venv/
+.pytest_cache/
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Docker ---
+# Kita tetap mau upload Dockerfile & docker-compose.yml
+# Tapi abaikan data log lokal
+*.log
